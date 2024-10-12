@@ -1,5 +1,6 @@
 import socket
 import sys
+import re
 
 def single_input(input, output):
     for i in range(len(input)):
@@ -17,6 +18,20 @@ def two_input(input1, input2, output):
             return "or"
         else:
             return "xor"
+        
+def extract_io(message):
+    single_input_pattern = r"Circuit\[\d+\]\s*:\s*(\w+)\s*->\s*\[OPERATION\]\s*->\s*(\w+)"
+    two_input_pattern = r"Circuit\[\d+\]\s*:\s*\('(\w+)',\s*'(\w+)'\)\s*->\s*\[OPERATION\]\s*->\s*(\w+)"
+    
+    single_match = re.search(single_input_pattern, message)
+    if single_match:
+        return single_match.group(1), single_match.group(2)
+    
+    two_match = re.search(two_input_pattern, message)
+    if two_match:
+        return (two_match.group(1), two_match.group(2)), two_match.group(3)
+    
+    return None
 
 # def interact_with_server(host, port):
 #     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
