@@ -93,8 +93,8 @@ def interact_with_server(host, port):
                         if isinstance(operation_io[0], tuple) and isinstance(operation_io[1], tuple):
                             # Two consecutive two-input operations
                             input1, input2 = operation_io[0]
-                            intermediate1, intermediate2 = operation_io[1][0], operation_io[1][1]
-                            final_output = operation_io[1]
+                            intermediate1, intermediate2 = operation_io[1]
+                            final_output = operation_io[1][1]
                             operation1 = two_input(input1, input2, intermediate1)
                             operation2 = two_input(intermediate1, intermediate2, final_output)
                             
